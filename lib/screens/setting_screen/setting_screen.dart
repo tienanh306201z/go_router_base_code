@@ -10,29 +10,32 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              Text(AppRouter.getCurrentPath(context)),
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Text(AppRouter.getCurrentPath(context)),
+              ],
+            ),
           ),
+          automaticallyImplyLeading: true,
         ),
-        leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => AppRouter.goNamed(AppRoute.home)),
-      ),
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () => AppRouter.goNamed(
-                  AppRoute.login,
-                  queryParameters: {
-                    "next": AppRouter.getCurrentState(context).uri.toString(),
-                  },
-                ),
-            child: Text(name)),
+        body: Center(
+          child: ElevatedButton(
+              onPressed: () => AppRouter.goNamed(
+                    AppRoute.login,
+                    queryParameters: {
+                      "next": AppRouter.getCurrentState(context).uri.toString(),
+                    },
+                  ),
+              child: Text(name)),
+        ),
       ),
     );
   }

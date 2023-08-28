@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router_base_code/navigation/app_route.dart';
 import '../../navigation/app_router.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,10 +21,11 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            final nextPath = AppRouter.getCurrentState(context)
-                .uri
-                .queryParameters["next"] as String;
-            AppRouter.go(nextPath);
+            final nextPath =
+                AppRouter.getCurrentState(context).uri.queryParameters["next"];
+            nextPath != null
+                ? AppRouter.go(nextPath)
+                : AppRouter.goNamed(AppRoute.home);
           },
           child: const Text("Back"),
         ),
