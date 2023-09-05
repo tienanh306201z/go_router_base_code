@@ -13,11 +13,9 @@ class AppRouter {
 
   static GoRouter get router => _router;
 
-  static String getCurrentPath(BuildContext context) =>
-      GoRouterState.of(context).uri.toString();
+  static String getCurrentPath(BuildContext context) => GoRouterState.of(context).uri.toString();
 
-  static GoRouterState getCurrentState(BuildContext context) =>
-      GoRouterState.of(context);
+  static GoRouterState getCurrentState(BuildContext context) => GoRouterState.of(context);
 
   static final GoRouter _router = GoRouter(
     navigatorKey: _navigationKey,
@@ -28,8 +26,7 @@ class AppRouter {
       GoRoute(
         path: "/home",
         name: AppRoute.home.name,
-        pageBuilder: (context, state) => _buildPageAnimation(
-            child: const HomeScreen(), pageKey: state.pageKey),
+        pageBuilder: (context, state) => _buildPageAnimation(child: const HomeScreen(), pageKey: state.pageKey),
         routes: [
           GoRoute(
             name: AppRoute.setting.name,
@@ -45,20 +42,17 @@ class AppRouter {
       GoRoute(
         path: "/splash",
         name: AppRoute.splash.name,
-        pageBuilder: (context, state) => _buildPageAnimation(
-            child: const SplashScreen(), pageKey: state.pageKey),
+        pageBuilder: (context, state) => _buildPageAnimation(child: const SplashScreen(), pageKey: state.pageKey),
       ),
       GoRoute(
         path: "/login",
         name: AppRoute.login.name,
-        pageBuilder: (context, state) => _buildPageAnimation(
-            child: const LoginScreen(), pageKey: state.pageKey),
+        pageBuilder: (context, state) => _buildPageAnimation(child: const LoginScreen(), pageKey: state.pageKey),
       ),
     ],
   );
 
-  static CustomTransitionPage _buildPageAnimation(
-      {required Widget child, LocalKey? pageKey}) {
+  static CustomTransitionPage _buildPageAnimation({required Widget child, LocalKey? pageKey}) {
     return CustomTransitionPage(
       key: pageKey,
       child: child,
@@ -99,10 +93,25 @@ class AppRouter {
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
     Object? extra,
   }) {
-    _router.goNamed(routeName.name,
-        pathParameters: pathParameters,
-        queryParameters: queryParameters,
-        extra: extra);
+    _router.goNamed(routeName.name, pathParameters: pathParameters, queryParameters: queryParameters, extra: extra);
+  }
+
+  static void pushNamed(
+      AppRoute routeName, {
+        Map<String, String> pathParameters = const <String, String>{},
+        Map<String, dynamic> queryParameters = const <String, dynamic>{},
+        Object? extra,
+      }) {
+    _router.pushNamed(routeName.name, pathParameters: pathParameters, queryParameters: queryParameters, extra: extra);
+  }
+
+  static void pushReplacementNamed(
+      AppRoute routeName, {
+        Map<String, String> pathParameters = const <String, String>{},
+        Map<String, dynamic> queryParameters = const <String, dynamic>{},
+        Object? extra,
+      }) {
+    _router.pushReplacementNamed(routeName.name, pathParameters: pathParameters, queryParameters: queryParameters, extra: extra);
   }
 
   static Future<T?> replacementNamed<T extends Object?>(
@@ -111,8 +120,7 @@ class AppRouter {
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
     Object? extra,
   }) {
-    return _router.replaceNamed(routeName.name,
-        pathParameters: pathParameters, queryParameters: queryParameters);
+    return _router.replaceNamed(routeName.name, pathParameters: pathParameters, queryParameters: queryParameters);
   }
 
   static void popAndGoNamed(
@@ -122,10 +130,7 @@ class AppRouter {
     Object? extra,
   }) {
     pop();
-    goNamed(routeName,
-        pathParameters: pathParameters,
-        queryParameters: queryParameters,
-        extra: extra);
+    goNamed(routeName, pathParameters: pathParameters, queryParameters: queryParameters, extra: extra);
   }
 
   static String namedLocation(
@@ -133,7 +138,6 @@ class AppRouter {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
   }) {
-    return _router.namedLocation(routeName.name,
-        pathParameters: pathParameters, queryParameters: queryParameters);
+    return _router.namedLocation(routeName.name, pathParameters: pathParameters, queryParameters: queryParameters);
   }
 }
